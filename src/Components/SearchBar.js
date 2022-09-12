@@ -9,19 +9,21 @@ function SearchBar() {
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState('');
   const [items, setItems] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
   async function fetchData() {
     try {
-      await spoonacular.get(`/recipes/complexSearch?&query=${query}`)
-      .then (res => {
+      const res = await spoonacular.get(`/recipes/complexSearch?query=${query.query}`);
+      res.data?.results?.forEach(item => {
+        res.data.results.forEach((item, index) => index <= 1 && setItems([res.data.results]));
         setIsFetching(false);
-        for(let i = 0; i <= 9; i++) {
-          res.data.results.forEach((res, index) => index < 9 && setItems([res]));
-          //setItems([res.data.results[1]]);
-          console.log(items[i]);
-          console.log(typeof items);
-        };
-      })
+        console.log(typeof item);
+        console.log(item);
+      });
+      if (res.data.totalResults === 0) {
+        setIsFetching(false);
+        setNoResults(true);
+      };
     } catch(err) {
       setIsFetching(false);
       setFetchError(err);
@@ -30,10 +32,11 @@ function SearchBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setNoResults(false);
     setEmptyQuery(false);
     setIsFetching(true);
     setFetchError('');
-    if (query.length === 0) {
+    if (query === '') {
       setEmptyQuery(true);
       setIsFetching(false);
     } else { fetchData(); };
@@ -52,6 +55,7 @@ function SearchBar() {
             />
         </form>
         <h3 className='text-center text-white'>{ isFetching ? 'Please wait...' : '' }</h3>
+        <h3 className='text-center text-white'>{ noResults ? 'No results found.' : '' }</h3>
         <h3 className='text-center text-danger'>{ fetchError.length !== 0 && `Failed to get data! ${fetchError}` }</h3>
         <h3 className='text-center text-danger'>{ emptyQuery ? 'Cannot search with an empty search field' : '' }</h3>
       </div>

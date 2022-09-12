@@ -6,7 +6,6 @@ function App() {
     <div>
       <h1 className='pt-2 text-center'>Search Food</h1>
       <SearchBar />
-
     </div>
   );
 }
