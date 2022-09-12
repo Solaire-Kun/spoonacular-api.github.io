@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import spoonacular from '../api/spoonacular';
+import axios from 'axios';
 import ItemsList from './ItemsList';
 import '../css/SearchBar.css';
 
@@ -12,7 +12,11 @@ function SearchBar() {
 
   async function fetchData() {
     try {
-      const res = await spoonacular.get(`/recipes/complexSearch?query=${query.query}`);
+      const res = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${process.env.REACT_APP_API_KEY}&diet=vegetarian&query=${query.query}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
         setItems(res.data.results);
         setIsFetching(false);
       if (res.data.totalResults === 0) {
