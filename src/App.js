@@ -9,7 +9,7 @@ function App() {
       <h1 className='pt-2 text-center'>Search Food</h1>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={ <SearchBar /> }></Route>
+          <Route path='/spoonacular-api.github.io' element={ <SearchBar /> }></Route>
           <Route path='/details' element={ <ItemDetails /> }></Route>
         </Routes>
       </BrowserRouter>
