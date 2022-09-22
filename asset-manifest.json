@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/spoonacular-api.github.io/static/css/main.dfe9b623.css",
+    "main.js": "/spoonacular-api.github.io/static/js/main.e639d537.js",
+    "index.html": "/spoonacular-api.github.io/index.html",
+    "main.dfe9b623.css.map": "/spoonacular-api.github.io/static/css/main.dfe9b623.css.map",
+    "main.e639d537.js.map": "/spoonacular-api.github.io/static/js/main.e639d537.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dfe9b623.css",
+    "static/js/main.e639d537.js"
+  ]
+}
