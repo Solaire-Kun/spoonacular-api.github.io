@@ -1,5 +1,6 @@
 import React from "react";
-import '../css/ItemsList.css';
+import { Link } from "react-router-dom";
+import './ItemsList.css';
 
 const ItemsList = (props) => {
     const items = props.items;
@@ -15,8 +16,13 @@ const ItemsList = (props) => {
                             <img className="d-flex rounded mx-auto mt-2 img-thumbnail bg-dark" src={ item.image } alt="" />
                             <div className="d-flex flex-column text-center justify-content-center">
                                 <h3 className="pt-1">{ item.title }</h3>
-                                <a href={ `https://spoonacular.com/recipes/${ item.title }-${ item.id }` }
-                                className="btn btn-primary d-flex mb-2 text-center justify-content-center align-self-center">Details</a>
+                                    <Link to={'/details'}
+                                        state={{title: item.title,
+                                                image: item.image,
+                                                summary: item.summary}}
+                                        className="btn btn-primary d-flex mb-2 text-center justify-content-center align-self-center">
+                                        Details
+                                    </Link>
                             </div>
                         </div>
                     ))}

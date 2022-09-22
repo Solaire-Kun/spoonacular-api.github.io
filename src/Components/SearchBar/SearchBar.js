@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import ItemsList from './ItemsList';
-import '../css/SearchBar.css';
+import ItemsList from '../ItemsList/ItemsList';
+import Loader from '../Loader/Loader';
+import './SearchBar.css';
 
 function SearchBar() {
   const [query, setQuery] = useState('');
@@ -12,13 +13,14 @@ function SearchBar() {
 
   async function fetchData() {
     try {
-      const res = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${process.env.REACT_APP_API_KEY}&diet=vegetarian&query=${query.query}`, {
+      const res = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${process.env.REACT_APP_API_KEY}&addRecipeInformation=${true}&diet=vegetarian&query=${query.query}`, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
         setItems(res.data.results);
         setIsFetching(false);
+        console.log(res);
       if (res.data.totalResults === 0) {
         setIsFetching(false);
         setNoResults(true);
@@ -50,9 +52,9 @@ function SearchBar() {
               required
             />
         </form>
-        <h3 className='text-center text-white'>{ isFetching ? 'Please wait...' : '' }</h3>
+        <div>{ isFetching ? <Loader /> : '' }</div>
         <h3 className='text-center text-white'>{ noResults ? 'No results found.' : '' }</h3>
-        <h3 className='text-center text-danger'>{ fetchError.length !== 0 && `Failed to get data! ${fetchError}` }</h3>
+        <h3 className='text-center text-danger'>{ fetchError.length !== 0 && `Failed to get data! ${ fetchError }` }</h3>
       </div>
       <ItemsList items={items} />
     </div>
