@@ -3,11 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 function ItemDetails(props) {
   const { state } = useLocation()
-  //const item = props.location?.state?.title
-  //const image = props.location?.items.image
-  
-  console.log(state)
-  //console.log(item)
 
   function createSummary() {
     return {__html: `${state.summary}`};

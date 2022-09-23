@@ -20,7 +20,6 @@ function SearchBar() {
       });
         setItems(res.data.results);
         setIsFetching(false);
-        console.log(res);
       if (res.data.totalResults === 0) {
         setIsFetching(false);
         setNoResults(true);
